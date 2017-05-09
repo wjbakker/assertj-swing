@@ -12,6 +12,9 @@
  */
 package org.assertj.swing.fixture;
 
+import static org.assertj.core.util.Preconditions.checkNotNull;
+
+import java.awt.Color;
 import java.util.regex.Pattern;
 
 import javax.annotation.Nonnull;
@@ -220,5 +223,31 @@ public class JTabbedPaneFixture extends
   public @Nonnull JTabbedPaneFixture requireDisabled(@Nonnull Index index) {
     driver().requireTabDisabled(target(), index);
     return this;
+  }
+
+  /**
+   * Returns a fixture that verifies the background color of the tab at the given index.
+   *
+   * @param index the index of the tab.
+   * @return a fixture that verifies the background color of the tab at the given index.
+   * @throws IndexOutOfBoundsException if the given index is not within the {@code JTabbedPane} bounds.
+   */
+  public @Nonnull ColorFixture backgroundAt(@Nonnull Index index)
+  {
+    Color background = driver().backgroundAt(target(), index);
+    return new ColorFixture(checkNotNull(background));
+  }
+
+  /**
+   * Returns a fixture that verifies the foreground color of the tab at the given index.
+   *
+   * @param index the index of the tab.
+   * @return a fixture that verifies the foreground color of the tab at the given index.
+   * @throws IndexOutOfBoundsException if the given index is not within the {@code JTabbedPane} bounds.
+   */
+  public @Nonnull ColorFixture foregroundAt(@Nonnull Index index)
+  {
+    Color foreground = driver().foregroundAt(target(), index);
+    return new ColorFixture(checkNotNull(foreground));
   }
 }

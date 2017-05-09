@@ -12,6 +12,7 @@
  */
 package org.assertj.swing.fixture;
 
+import static java.awt.Color.BLUE;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.swing.data.Index.atIndex;
 import static org.mockito.Mockito.mock;
@@ -121,5 +122,21 @@ public class JTabbedPaneFixture_withMocks_Test {
   public void should_Call_RequireDisabled_In_Driver_And_Return_Self() {
     assertThat(fixture.requireDisabled(atIndex(6))).isSameAs(fixture);
     verify(fixture.driver()).requireTabDisabled(fixture.target(), atIndex(6));
+  }
+
+  @Test
+  public void should_Return_Tab_Background_Color_Using_Driver() {
+    when(fixture.driver().backgroundAt(fixture.target(), atIndex(6))).thenReturn(BLUE);
+    ColorFixture colorFixture = fixture.backgroundAt(atIndex(6));
+    assertThat(colorFixture.target()).isSameAs(BLUE);
+    verify(fixture.driver()).backgroundAt(fixture.target(), atIndex(6));
+  }
+
+  @Test
+  public void should_Return_Tab_Foreground_Color_Using_Driver() {
+    when(fixture.driver().foregroundAt(fixture.target(), atIndex(6))).thenReturn(BLUE);
+    ColorFixture colorFixture = fixture.foregroundAt(atIndex(6));
+    assertThat(colorFixture.target()).isSameAs(BLUE);
+    verify(fixture.driver()).foregroundAt(fixture.target(), atIndex(6));
   }
 }

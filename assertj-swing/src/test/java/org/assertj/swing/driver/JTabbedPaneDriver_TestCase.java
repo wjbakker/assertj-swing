@@ -12,6 +12,8 @@
  */
 package org.assertj.swing.driver;
 
+import static java.awt.Color.BLUE;
+import static java.awt.Color.YELLOW;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.swing.edt.GuiActionRunner.execute;
 import static org.assertj.swing.test.ExpectedException.none;
@@ -87,6 +89,8 @@ public abstract class JTabbedPaneDriver_TestCase extends RobotBasedTestCase {
       tabbedPane.addTab("One", null, panelWithName("panel1"), "tip1");
       tabbedPane.addTab("Two", null, panelWithName("panel2"), "tip2");
       tabbedPane.addTab("Three", null, panelWithName("panel3"), "tip3");
+      tabbedPane.setBackgroundAt(tabbedPane.indexOfTab("Two"), YELLOW);
+      tabbedPane.setForegroundAt(tabbedPane.indexOfTab("Two"), BLUE);
       tabbedPane.setEnabledAt(tabbedPane.indexOfTab("Three"), false);
       add(tabbedPane);
       setPreferredSize(new Dimension(100, 100));

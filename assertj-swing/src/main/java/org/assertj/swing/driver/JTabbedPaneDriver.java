@@ -22,6 +22,7 @@ import static org.assertj.swing.driver.JTabbedPaneTabTitlesQuery.tabTitlesOf;
 import static org.assertj.swing.driver.TextAssert.verifyThat;
 import static org.assertj.swing.edt.GuiActionRunner.execute;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Point;
 import java.util.List;
@@ -334,6 +335,32 @@ public class JTabbedPaneDriver extends JComponentDriver {
   public void requireTabDisabled(@Nonnull JTabbedPane tabbedPane, @Nonnull Index index) {
     boolean actualEnabled = isEnabledAt(tabbedPane, index);
     assertThat(actualEnabled).as(enabledAtProperty(tabbedPane)).isFalse();
+  }
+
+  /**
+   * Returns the background color of the tab at the given index.
+   *
+   * @param tabbedPane the target {@code JTabbedPane}.
+   * @param index the index of the tab.
+   * @return the background color of the tab at the given index.
+   * @throws IndexOutOfBoundsException if the given index is not within the {@code JTabbedPane} bounds.
+   */
+  @RunsInEDT
+  public @Nullable Color backgroundAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
+    return execute(() -> tabbedPane.getBackgroundAt(index.value));
+  }
+
+  /**
+   * Returns the foreground color of the tab at the given index.
+   *
+   * @param tabbedPane the target {@code JTabbedPane}.
+   * @param index the index of the tab.
+   * @return the foreground color of the tab at the given index.
+   * @throws IndexOutOfBoundsException if the given index is not within the {@code JTabbedPane} bounds.
+   */
+  @RunsInEDT
+  public @Nullable Color foregroundAt(final @Nonnull JTabbedPane tabbedPane, final @Nonnull Index index) {
+    return execute(() -> tabbedPane.getForegroundAt(index.value));
   }
 
   @RunsInEDT
